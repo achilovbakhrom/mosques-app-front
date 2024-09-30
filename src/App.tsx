@@ -1,0 +1,67 @@
+import Login from "./pages/Login";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import Page404 from "./pages/Page404";
+import Page403 from "./pages/Page403";
+import Page500 from "./pages/Page500";
+import { AUTH_PATH } from "./constant/path";
+import Main from "./pages/Main";
+import PlacePage from "./pages/Place";
+import Records from "./pages/Records";
+import Navigation from "./pages/Navigation";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigation />,
+    children: [
+      {
+        path: "",
+        index: true,
+        element: <Navigate to="/app" />,
+      },
+      {
+        path: AUTH_PATH,
+        element: <Login />,
+      },
+      {
+        path: "/app",
+        element: <Main />,
+        index: true,
+      },
+      {
+        path: "/app/place/:place_type",
+        element: <PlacePage />,
+      },
+      {
+        path: "/app/record/:id",
+        element: <Records />,
+      },
+      {
+        path: "/errors/404",
+        element: <Page404 />,
+      },
+      {
+        path: "/errors/403",
+        element: <Page403 />,
+      },
+      {
+        path: "/errors/500",
+        element: <Page500 />,
+      },
+      {
+        path: "*",
+        element: <Navigate to="/errors/404" />,
+      },
+    ],
+  },
+]);
+
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+export default App;
