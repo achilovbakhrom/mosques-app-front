@@ -1,7 +1,9 @@
 import { useMemo } from "react";
 import { Record } from "../../../model/Record";
-import { Table } from "antd";
+import { Flex, Table, Tag, Typography } from "antd";
 import { PAGE_SIZE_OPTIONS } from "../../../constant";
+import { OperationType } from "../../../model/Category";
+import { formatNumber } from "../../../utils/format";
 
 type Props = {
   data: Record[];
@@ -25,33 +27,55 @@ function RecordsList(props: Props) {
       loading={props.loading}
       columns={[
         { key: "id", dataIndex: "id", width: 50, title: "ID" },
-        {
-          key: "category",
-          dataIndex: "category",
-          title: "Категорияси",
-          render: (value) => value.name,
-        },
-        {
-          key: "amount",
-          dataIndex: "amount",
-          title: "Суммаси",
-        },
-        {
-          key: "unit",
-          render: ({ category }) => category.unit?.name,
-          title: "Улчов бирлиги",
-        },
-        {
-          key: "quantity",
-          dataIndex: "quantity",
-          title: "Киймати",
-        },
+        { key: "date", title: "Сана", dataIndex: "date", width: 120 },
         {
           key: "place",
           dataIndex: "place",
           title: "Жойи",
           render: (value) => value.name,
         },
+        {
+          key: "category",
+          dataIndex: "category",
+          title: "Категорияси",
+          render: (value) => <Typography.Text>{value.name}</Typography.Text>,
+        },
+        {
+          key: "type",
+          dataIndex: "category",
+          title: "Кирим/Чиким",
+          width: 100,
+          render: (value) => (
+            <Tag
+              color={
+                value.operation_type === OperationType.Expense ? "red" : "green"
+              }
+            >
+              {value.operation_type === OperationType.Expense
+                ? "чиким"
+                : "кирим"}
+            </Tag>
+          ),
+        },
+        {
+          key: "amount",
+          dataIndex: "amount",
+          title: "Суммаси",
+          render: (value) => formatNumber(value),
+        },
+        {
+          key: "unit",
+          render: ({ category }) => category.unit?.name ?? "-",
+          title: "Улчов бирлиги",
+          width: 120,
+        },
+        {
+          key: "quantity",
+          dataIndex: "quantity",
+          title: "Киймати",
+          render: (value) => (value ? formatNumber(value) : "-"),
+        },
+
         {
           key: "description",
           dataIndex: "description",

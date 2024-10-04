@@ -1,16 +1,26 @@
-import { Flex, Form, Input, InputNumber, Modal, Typography } from "antd";
+import {
+  DatePicker,
+  Flex,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Typography,
+} from "antd";
 
 import CategoryPicker from "../../shared/pickers/categoryPicker";
 import { Category } from "../../../model/Category";
 import { useState } from "react";
 import useRecordStore from "../../../stores/recordStore";
 import usePlaceStore from "../../../stores/placeStore";
+import dayjs from "dayjs";
 
 type Props = {
   onClose: () => void;
 };
 
 interface FormState {
+  date?: dayjs.Dayjs;
   category: Category;
   amount: number;
   quantity?: number;
@@ -41,6 +51,7 @@ function CreateRecord(props: Props) {
           console.log("values", values);
           await store.createRecord(
             {
+              date: values.date?.format("YYYY-MM-DD"),
               category,
               amount: values.amount,
               quantity: values.quantity,
@@ -52,9 +63,21 @@ function CreateRecord(props: Props) {
         }}
       >
         <Flex className="w-full">
+          <Typography.Text className="flex-1">Санани киритинг:</Typography.Text>
+
+          <Form.Item
+            name="date"
+            rules={[{ required: true }]}
+            initialValue={dayjs()}
+          >
+            <DatePicker placeholder="Сана" className="w-full" />
+          </Form.Item>
+        </Flex>
+        <Flex className="w-full">
           <Typography.Text className="flex-1">
             Категорияни танланг:
           </Typography.Text>
+
           <Form.Item className="w-1/2" rules={[{ required: true }]}>
             <CategoryPicker
               onChange={(_, __, originalData) => {

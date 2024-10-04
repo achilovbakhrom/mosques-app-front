@@ -35,7 +35,7 @@ function Main() {
       case Role.CityAdmin:
         return <Navigate to={buildPath(PlaceType.Mosque)} />;
       case Role.MosqueAdmin:
-        return <Navigate to="/app/expenses" />;
+        return <Navigate to={`/app/record/${user.place?.id}`} />;
     }
   }
 

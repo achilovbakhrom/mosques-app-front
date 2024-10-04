@@ -52,12 +52,25 @@ instance.interceptors.response.use(
     ) {
       originalRequest._retry = true;
 
+      const store = useAuthStore.getState();
+      const token = store.token?.access;
+      if (token) {
+        // eslint-disable-next-line no-restricted-globals
+        location.href = "/auth";
+        return;
+      }
+
       try {
         await new Promise((res) => setTimeout(res, 500));
         const newAccessToken = await refreshToken();
-        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        if (newAccessToken) {
+          originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
 
-        return instance(originalRequest);
+          return instance(originalRequest);
+        } else {
+          // eslint-disable-next-line no-restricted-globals
+          location.href = "/auth";
+        }
       } catch (tokenRefreshError) {
         return Promise.reject(tokenRefreshError);
       }
