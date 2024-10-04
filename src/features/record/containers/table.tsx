@@ -1,9 +1,8 @@
 import { useMemo } from "react";
 import useRecordTable from "../hooks/useRecordTable";
-import RecordsList from "../components/RecordsList";
-import { Typography } from "antd";
+import RecordsList from "../components/RecordList";
 
-function RecordTable() {
+function ReportTable() {
   const { store } = useRecordTable();
 
   const data = useMemo(() => store.data ?? [], [store.data]);
@@ -22,4 +21,4 @@ function RecordTable() {
   );
 }
 
-export default RecordTable;
+export default ReportTable;

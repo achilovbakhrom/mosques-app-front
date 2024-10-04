@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Record } from "../../../model/Record";
-import { Flex, Table, Tag, Typography } from "antd";
+import { Table, Tag, Typography } from "antd";
 import { PAGE_SIZE_OPTIONS } from "../../../constant";
 import { OperationType } from "../../../model/Category";
 import { formatNumber } from "../../../utils/format";

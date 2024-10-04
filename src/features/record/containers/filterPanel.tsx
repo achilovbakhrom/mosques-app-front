@@ -1,4 +1,4 @@
-import { PlusOutlined } from "@ant-design/icons";
+import { FileExcelOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Card, DatePicker, Flex, Select, Typography } from "antd";
 import { useToggle } from "react-use";
 import CreateRecord from "./createRecord";
@@ -32,18 +32,31 @@ function FilterPanel() {
       >
         <Flex align="center" gap={8}>
           <Typography.Text>{currentPlace?.name ?? "-"}</Typography.Text>
-          <DatePicker.RangePicker />
-          <Select placeholder="Категория" />
+          {/* <DatePicker.RangePicker />
+          <Select placeholder="Категория" /> */}
         </Flex>
-        <Button
-          icon={<PlusOutlined />}
-          iconPosition="start"
-          type="primary"
-          onClick={toggleOpen}
-          loading={currentPlaceLoading}
-        >
-          Катор кушиш
-        </Button>
+        <Flex align="center" gap={8}>
+          <Button
+            iconPosition="start"
+            type="primary"
+            loading={currentPlaceLoading}
+            icon={<FileExcelOutlined />}
+            onClick={() => {
+              navigate(`/app/report/${id}`);
+            }}
+          >
+            Хисобот
+          </Button>
+          <Button
+            icon={<PlusOutlined />}
+            iconPosition="start"
+            type="primary"
+            onClick={toggleOpen}
+            loading={currentPlaceLoading}
+          >
+            Катор кушиш
+          </Button>
+        </Flex>
       </Flex>
     </Card>
   );

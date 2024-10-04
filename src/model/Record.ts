@@ -1,5 +1,4 @@
 import { Category } from "./Category";
-import { RecursivePartial } from "./helper";
 import { Nillable } from "./nillable";
 import { Place } from "./Place";
 import { User } from "./User";

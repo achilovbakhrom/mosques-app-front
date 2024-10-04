@@ -10,8 +10,9 @@ import Page500 from "./pages/Page500";
 import { AUTH_PATH } from "./constant/path";
 import Main from "./pages/Main";
 import PlacePage from "./pages/Place";
-import Records from "./pages/Records";
+import RecordPage from "./pages/Records";
 import Navigation from "./pages/Navigation";
+import ReportPage from "./pages/Report";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/app/record/:id",
-        element: <Records />,
+        element: <RecordPage />,
+      },
+      {
+        path: "/app/report/:id",
+        element: <ReportPage />,
       },
       {
         path: "/errors/404",
