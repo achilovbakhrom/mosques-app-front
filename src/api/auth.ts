@@ -2,12 +2,19 @@ import { Login } from "../model/Login";
 import { Token } from "../model/Token";
 import { User } from "../model/User";
 import instance from "./instance";
+import axios from "axios";
 
 class AuthApi {
   private static instance = instance;
 
   static async login(arg: Login): Promise<Token> {
-    const response = await this.instance.post("/user/login/", arg);
+    const axiosInstance = axios.create({
+      baseURL:
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:8000/api"
+          : "https://muslim-api.nss.uz",
+    });
+    const response = await axiosInstance.post("/user/login/", arg);
     return response.data;
   }
 
