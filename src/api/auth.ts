@@ -12,7 +12,7 @@ class AuthApi {
       baseURL:
         process.env.NODE_ENV === "development"
           ? "http://localhost:8000/api"
-          : "https://muslim-api.nss.uz",
+          : "https://muslim-api.sies.uz",
     });
     const response = await axiosInstance.post("/user/login/", arg);
     return response.data;
