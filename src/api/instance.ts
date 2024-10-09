@@ -2,7 +2,12 @@ import axios from "axios";
 import useAuthStore from "../stores/authStore";
 import AuthApi from "./auth";
 
-const instance = axios.create({ baseURL: "http://localhost:8000/api" });
+const instance = axios.create({
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:8000/api"
+      : "https://muslim-api.sies.uz/api",
+});
 
 instance.interceptors.request.use(
   (config) => {
