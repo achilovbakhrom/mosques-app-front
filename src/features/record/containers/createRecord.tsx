@@ -48,7 +48,6 @@ function CreateRecord(props: Props) {
       <Form
         form={form}
         onFinish={async (values) => {
-          console.log("values", values);
           await store.createRecord(
             {
               date: values.date?.format("YYYY-MM-DD"),

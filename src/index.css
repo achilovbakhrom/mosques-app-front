@@ -16,3 +16,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ant-table-wrapper .ant-table-content .ant-table-tbody .ant-table-expanded-row .ant-table-cell {
+  width: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+}

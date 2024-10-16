@@ -13,6 +13,7 @@ import PlacePage from "./pages/Place";
 import RecordPage from "./pages/Records";
 import Navigation from "./pages/Navigation";
 import ReportPage from "./pages/Report";
+import HierarchicalReportPage from "./pages/HierarchicallyReport";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/app/place/:place_type",
         element: <PlacePage />,
+      },
+      {
+        path: "/app/place/:place_type/top-level-report/:id",
+        element: <HierarchicalReportPage />,
       },
       {
         path: "/app/record/:id",

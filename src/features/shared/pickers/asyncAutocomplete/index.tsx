@@ -39,8 +39,6 @@ function AsyncAutocomplete<T>(props: Props<T>) {
     ...rest
   } = props;
 
-  console.log("options", options);
-
   const lookup = useCallback(
     debounce((arg: string) => {
       if (isReadyForRequest === false) {
@@ -84,7 +82,6 @@ function AsyncAutocomplete<T>(props: Props<T>) {
       }
     }
   }, [props.lazy, path, open, options]);
-  console.log("rest", rest.value);
   return (
     <Select
       {...rest}

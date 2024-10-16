@@ -111,7 +111,7 @@ function ReportList(props: Props) {
     const x = (colsNumber - 2) * COLS_WIDTH + 300 + 200;
 
     return [result, x];
-  }, [props.data]);
+  }, [props.data, props.reportType]);
 
   return (
     <Table

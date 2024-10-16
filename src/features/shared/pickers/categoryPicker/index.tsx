@@ -8,7 +8,6 @@ type CategoryProps = Omit<SelectProps, "onChange"> &
 
 function CategoryPicker(props: CategoryProps) {
   const { placeholder = "Категорияни танланг", ...rest } = props;
-  console.log("vvv", rest.value);
   return (
     <AsyncAutocomplete
       {...rest}
