@@ -2,6 +2,8 @@ import axios from "axios";
 import useAuthStore from "../stores/authStore";
 import AuthApi from "./auth";
 
+console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+
 const instance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"

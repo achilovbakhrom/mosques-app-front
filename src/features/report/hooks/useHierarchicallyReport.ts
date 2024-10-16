@@ -14,7 +14,6 @@ function useHierarchicallyReport() {
     store.hierarchicalStart,
     store.hierarchicalEnd,
     store.hierarchicalReportType,
-    store,
   ]);
 
   return {

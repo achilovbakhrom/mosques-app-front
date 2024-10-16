@@ -28,6 +28,7 @@
     "zustand": "^5.0.0-rc.2"
   },
   "scripts": {
+    "start:prod": "NODE_ENV=\"production\" react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
