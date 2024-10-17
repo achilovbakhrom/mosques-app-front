@@ -182,7 +182,7 @@ function FilterPanel(props: Props) {
     const dataRows = data.data;
 
     // Header row
-    const headerRow = ["Category", ...periods];
+    const headerRow = ["Категория", ...periods];
     rows.push(headerRow);
 
     // Data rows
@@ -209,7 +209,7 @@ function FilterPanel(props: Props) {
       type: "array",
     });
     const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
-    saveAs(blob, "data.xlsx");
+    saveAs(blob, "hisobot-masjid.xlsx");
   };
 
   return (
