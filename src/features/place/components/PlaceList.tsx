@@ -1,6 +1,6 @@
-import { Button, Flex, Table } from "antd";
+import { Button, Flex, Input, Table } from "antd";
 import { Place } from "../../../model/Place";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { PAGE_SIZE_OPTIONS } from "../../../constant";
 import { FileExcelOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
@@ -23,12 +23,18 @@ function PlaceList(props: Props) {
   }, []);
   const navigate = useNavigate();
   const { place_type } = useParams();
+  const [inn, setInn] = useState("");
 
   return (
     <Table
       size="small"
       sticky
-      dataSource={props.data}
+      dataSource={props.data.filter((item) => {
+        if (inn) {
+          return item.inn?.includes(inn);
+        }
+        return true;
+      })}
       loading={props.loading}
       onRow={(data) => ({
         onClick: () => props.onRowClick(data),
@@ -37,10 +43,27 @@ function PlaceList(props: Props) {
         { key: "id", dataIndex: "id", width: 50, title: "ID" },
         {
           key: "name",
-          title: "Жой номи",
-          render: ({ id, name }) => (
+          title: (
+            <Flex className="w-full" gap={10} align="center">
+              Жой номи{" "}
+              <span>
+                <Input
+                  size="small"
+                  className="w-[300px]"
+                  placeholder="ИНН буйича кидирув"
+                  value={inn}
+                  onChange={(e) => {
+                    setInn(e.target.value);
+                  }}
+                />
+              </span>
+            </Flex>
+          ),
+          render: ({ id, name, inn }) => (
             <Flex justify="space-between" align="center">
-              {name}
+              <p>
+                {name} &nbsp; &nbsp;{inn ? <strong>(ИНН: {inn})</strong> : null}
+              </p>
               {place_type !== PlaceType.Mosque && (
                 <Button
                   icon={<FileExcelOutlined />}

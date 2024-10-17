@@ -1,4 +1,4 @@
-import { Avatar, Popover, Button, Typography, Divider } from "antd";
+import { Avatar, Popover, Button, Divider } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import useUserStore from "../../stores/userStore";
 import useAuthStore from "../../stores/authStore";
