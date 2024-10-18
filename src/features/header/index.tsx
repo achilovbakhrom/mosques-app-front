@@ -1,16 +1,20 @@
-import { Breadcrumb, Button, Flex, Typography } from "antd";
-import { useMatch, useNavigate, useParams } from "react-router-dom";
-import { PlaceType } from "../../model/PlaceType";
+import { Button, Flex, Typography } from "antd";
+import {
+  useLocation,
+  useMatch,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useUserStore from "../../stores/userStore";
-import { Role } from "../../model/Role";
 import UserProfile from "../userProfile";
+import PlaceApi from "../../api/place";
+import { Place } from "../../model/Place";
 
 function Header() {
-  const { place_type } = useParams<{ place_type: PlaceType }>();
-
-  const placeMatch = useMatch("/app/place/:place_type");
+  const [place, setPlace] = useState<Place>();
+  const placeMatch = useMatch("/app/place");
 
   const navigate = useNavigate();
 
@@ -20,82 +24,27 @@ function Header() {
 
   const currentUser = userStore.user;
 
-  const hasBackButton = useMemo(() => {
-    if (!currentUser) {
-      return false;
-    }
-    return (
-      place_type !== PlaceType.Region && currentUser.role !== Role.MosqueAdmin
-    );
-  }, [place_type, currentUser]);
+  const location = useLocation();
 
-  const breadCrumb = useMemo(() => {
-    switch (place_type) {
-      case PlaceType.Region:
-        return (
-          <Breadcrumb>
-            <Breadcrumb.Item className="cursor-pointer">
-              Вилоятлар
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        );
-      case PlaceType.City:
-        return (
-          <Breadcrumb>
-            <Breadcrumb.Item
-              className="cursor-pointer"
-              onClick={() => {
-                if (
-                  currentUser?.role === Role.Admin ||
-                  currentUser?.role === Role.RegionAdmin
-                ) {
-                  navigate(-1);
-                }
-              }}
-            >
-              Вилоятлар
-            </Breadcrumb.Item>
-            <Breadcrumb.Item className="cursor-pointer">
-              Шахарлар
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        );
-      case PlaceType.Mosque:
-        return (
-          <Breadcrumb>
-            <Breadcrumb.Item
-              className="cursor-pointer"
-              onClick={() => {
-                if (
-                  currentUser?.role === Role.Admin ||
-                  currentUser?.role === Role.RegionAdmin
-                ) {
-                  navigate(-2);
-                }
-              }}
-            >
-              Вилоятлар
-            </Breadcrumb.Item>
-            <Breadcrumb.Item
-              className="cursor-pointer"
-              onClick={() => {
-                if (
-                  currentUser?.role === Role.Admin ||
-                  currentUser?.role === Role.RegionAdmin
-                ) {
-                  navigate(-1);
-                }
-              }}
-            >
-              Шахарлар
-            </Breadcrumb.Item>
-            <Breadcrumb.Item className="cursor-pointer">
-              Масжидлар
-            </Breadcrumb.Item>
-          </Breadcrumb>
-        );
+  const { id } = useParams();
+
+  const placeId = useMemo(() => {
+    const queryParams = new URLSearchParams(location.search);
+    return queryParams.get("placeId") || id;
+  }, [location, id]);
+
+  useEffect(() => {
+    if (placeId != null && !Number.isNaN(Number(placeId))) {
+      PlaceApi.getCurrentPlace(Number(placeId)).then((value) => {
+        setPlace(value);
+      });
     }
-  }, [place_type, currentUser]);
+  }, [placeId]);
+
+  const hasBackButton = useMemo(
+    () => currentUser && placeId != null,
+    [placeId, currentUser]
+  );
 
   return (
     <Flex
@@ -107,7 +56,7 @@ function Header() {
         {hasBackButton && (
           <Button icon={<ArrowLeftOutlined />} type="link" onClick={goBack} />
         )}
-        {breadCrumb}
+        {placeId ? place?.name || "Умумий" : "Умумий"} &nbsp; &nbsp;
         {!placeMatch && <Typography.Text>Киримлар/Чикимлар</Typography.Text>}
       </Flex>
       <UserProfile />

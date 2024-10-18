@@ -30,8 +30,6 @@ function FilterPanel(props: Props) {
     }
   }, [id]);
 
-  console.log("sss", JSON.stringify(store.data, null, 2));
-
   const dates = useMemo(() => {
     if (props.isMosque) {
       return [
@@ -220,7 +218,9 @@ function FilterPanel(props: Props) {
         justify="space-between"
       >
         <Flex gap={6} align="center">
-          <Typography.Text>{currentPlace?.name ?? "-"}</Typography.Text>
+          <Typography.Text className="font-bold mr-3">
+            {currentPlace?.name ?? "-"}
+          </Typography.Text>
           <DatePicker.RangePicker
             value={dates as any}
             onChange={(_, [date1, date2]) => {
@@ -253,7 +253,7 @@ function FilterPanel(props: Props) {
           loading={store.loading || store.hierarchicalLoading}
           onClick={props.isMosque ? exportDataToExcelSmall : exportToExcelBig}
         >
-          Экселга чикариш
+          Эксельга чикариш
         </Button>
       </Flex>
     </Card>

@@ -3,7 +3,7 @@ import useUserStore from "../stores/userStore";
 import { Role } from "../model/Role";
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
-import { PlaceType } from "../model/PlaceType";
+import { objectToQueryParams } from "../utils/navigation";
 
 function Main() {
   const { loading, user, getCurrentUser } = useUserStore();
@@ -24,23 +24,22 @@ function Main() {
     );
   }
 
-  const buildPath = (arg: PlaceType) => `/app/place/${arg}`;
+  const buildPath = () =>
+    `/app/place?${objectToQueryParams({ placeId: user?.place?.id })}`;
 
   if (user) {
     switch (user.role) {
       case Role.Admin:
-        return <Navigate to={buildPath(PlaceType.Region)} />;
+        return <Navigate to={buildPath()} />;
       case Role.RegionAdmin:
-        return <Navigate to={buildPath(PlaceType.City)} />;
-      case Role.CityAdmin:
-        return <Navigate to={buildPath(PlaceType.Mosque)} />;
+        return <Navigate to={buildPath()} />;
       case Role.MosqueAdmin:
         return <Navigate to={`/app/record/${user.place?.id}`} />;
     }
   }
 
   // should get user role, and according to the role this component should redirect to appropriate page
-  return !user && !loading && <Navigate to="/auth" />;
+  return !user && !loading ? <Navigate to="/auth" /> : null;
 }
 
 export default Main;

@@ -5,7 +5,7 @@ import usePlaceTable from "../hooks/usePlaceTable";
 import { useMemo } from "react";
 
 function PlaceTable() {
-  const { store, nextPlaceType, navigate } = usePlaceTable();
+  const { store, navigate } = usePlaceTable();
 
   const data = useMemo(() => store.data ?? [], [store.data]);
 
@@ -20,10 +20,10 @@ function PlaceTable() {
         store.setPagination(page, size);
       }}
       onRowClick={(data: Place) => {
-        if (nextPlaceType) {
+        if (!data.is_mosque) {
           navigate(
-            `/app/place/${nextPlaceType}?${objectToQueryParams({
-              parentId: data.id,
+            `/app/place?${objectToQueryParams({
+              placeId: data.id,
             })}`
           );
         } else {

@@ -35,11 +35,11 @@ const router = createBrowserRouter([
         index: true,
       },
       {
-        path: "/app/place/:place_type",
+        path: "/app/place",
         element: <PlacePage />,
       },
       {
-        path: "/app/place/:place_type/top-level-report/:id",
+        path: "/app/place/top-level-report/:id",
         element: <HierarchicalReportPage />,
       },
       {

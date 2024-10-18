@@ -8,5 +8,9 @@ export const setNavigate = (arg?: NavigateFunction) => {
 
 export const getNavigate = () => navigate;
 
-export const objectToQueryParams = (arg: Record<string, any>) =>
-  new URLSearchParams(arg).toString();
+export const objectToQueryParams = (arg: Record<string, any>) => {
+  const filteredArg = Object.fromEntries(
+    Object.entries(arg).filter(([_, value]) => value != null)
+  );
+  return new URLSearchParams(filteredArg).toString();
+};

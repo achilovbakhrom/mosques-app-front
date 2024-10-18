@@ -3,8 +3,7 @@ import { Place } from "../../../model/Place";
 import { useMemo, useState } from "react";
 import { PAGE_SIZE_OPTIONS } from "../../../constant";
 import { FileExcelOutlined } from "@ant-design/icons";
-import { useNavigate, useParams } from "react-router-dom";
-import { PlaceType } from "../../../model/PlaceType";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   data: Place[];
@@ -22,7 +21,6 @@ function PlaceList(props: Props) {
     return height - 220;
   }, []);
   const navigate = useNavigate();
-  const { place_type } = useParams();
   const [inn, setInn] = useState("");
 
   return (
@@ -59,18 +57,18 @@ function PlaceList(props: Props) {
               </span>
             </Flex>
           ),
-          render: ({ id, name, inn }) => (
+          render: ({ id, name, inn, is_mosque }) => (
             <Flex justify="space-between" align="center">
               <p>
                 {name} &nbsp; &nbsp;{inn ? <strong>(ИНН: {inn})</strong> : null}
               </p>
-              {place_type !== PlaceType.Mosque && (
+              {!is_mosque && (
                 <Button
                   icon={<FileExcelOutlined />}
                   onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
-                    navigate(`/app/place/${place_type}/top-level-report/${id}`);
+                    navigate(`/app/place/top-level-report/${id}`);
                   }}
                 >
                   Хисобот
