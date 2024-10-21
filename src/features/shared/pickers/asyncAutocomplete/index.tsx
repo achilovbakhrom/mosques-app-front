@@ -13,7 +13,10 @@ export type AsyncAutocompleteEvent<R> = {
   ) => void;
 };
 
-export type Props<R> = Omit<SelectProps, "onChange"> & {
+export type Props<R> = Omit<
+  SelectProps,
+  "onChange" | "labelRender" | "optionRender"
+> & {
   path?: string;
   searchKey: string;
   mapper: (arg: R) => { value: string; label: string };
@@ -22,6 +25,8 @@ export type Props<R> = Omit<SelectProps, "onChange"> & {
   isReadyForRequest?: boolean;
   params?: any;
   lazy?: boolean;
+  labelRender?: (arg?: R) => React.ReactNode;
+  optionRender?: (arg?: R) => React.ReactNode;
 } & AsyncAutocompleteEvent<R>;
 
 function AsyncAutocomplete<T>(props: Props<T>) {
@@ -98,6 +103,26 @@ function AsyncAutocomplete<T>(props: Props<T>) {
       options={options}
       onSearch={lookup}
       loading={isLoading}
+      optionRender={(arg) => {
+        if (!props.optionRender) {
+          return arg.label;
+        }
+        const idx =
+          originalData
+            .map(mapper)
+            .findIndex((item) => item.value === arg.value) ?? 0;
+        return idx >= 0 ? props.optionRender(originalData[idx]) : arg.label;
+      }}
+      labelRender={(arg) => {
+        if (!props.labelRender) {
+          return arg.label;
+        }
+        const idx =
+          originalData
+            .map(mapper)
+            .findIndex((item) => item.value === arg.value) ?? 0;
+        return idx >= 0 ? props.labelRender(originalData[idx]) : arg.label;
+      }}
       showSearch
       allowClear
     />

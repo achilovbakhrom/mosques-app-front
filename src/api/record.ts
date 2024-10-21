@@ -20,6 +20,11 @@ class RecordApi {
   static async createRecord(arg: Partial<Record>): Promise<void> {
     await this.instance.post("/record/", arg);
   }
+
+  static async getTotalSum(arg: number): Promise<{ total?: number | null }> {
+    const response = await this.instance.get(`/record/report-profit/${arg}/`);
+    return response.data;
+  }
 }
 
 export default RecordApi;

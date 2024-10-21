@@ -103,7 +103,7 @@ function CreateRecord(props: Props) {
             className="w-1/2"
             rules={[{ required: true }]}
           >
-            <InputNumber className="w-full" />
+            <InputNumber className="w-full" min={0} />
           </Form.Item>
         </Flex>
         {category?.unit && (
@@ -133,6 +133,7 @@ function CreateRecord(props: Props) {
                 addonAfter={
                   <Typography.Text>{category.unit.name}</Typography.Text>
                 }
+                min={0}
               />
             </Form.Item>
           </Flex>

@@ -5,9 +5,12 @@ import CreateRecord from "./createRecord";
 import usePlaceStore from "../../../stores/placeStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import useRecordStore from "../../../stores/recordStore";
+import { formatNumber } from "../../../utils/format";
 
 function FilterPanel() {
   const [open, toggleOpen] = useToggle(false);
+  const store = useRecordStore();
   const { getCurrentPlace, currentPlace, currentPlaceLoading } =
     usePlaceStore();
   const { id } = useParams();
@@ -32,8 +35,9 @@ function FilterPanel() {
       >
         <Flex align="center" gap={8}>
           <Typography.Text>{currentPlace?.name ?? "-"}</Typography.Text>
-          {/* <DatePicker.RangePicker />
-          <Select placeholder="Категория" /> */}
+          <Typography.Text style={{ fontWeight: "bold" }}>
+            (Фарки: {formatNumber(store.totalSum)})
+          </Typography.Text>
         </Flex>
         <Flex align="center" gap={8}>
           <Button

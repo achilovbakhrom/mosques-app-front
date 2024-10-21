@@ -12,10 +12,12 @@ interface RecordState {
   page: number;
   size: number;
   total: number;
+  totalSum: number;
 
   getRecords(page: number, pageSize: number, placeId?: number): Promise<void>;
   setPagination: (page: number, size: number) => void;
   createRecord(arg: Partial<Record>, callback: Function): Promise<void>;
+  getTotalSum(placeId: number): Promise<void>;
 }
 
 const useRecordStore = create<RecordState>()(
@@ -25,6 +27,7 @@ const useRecordStore = create<RecordState>()(
     page: 1,
     size: 20,
     total: 0,
+    totalSum: 0,
     getRecords: async (page, pageSize, placeId) => {
       try {
         set({ loading: true });
@@ -61,6 +64,15 @@ const useRecordStore = create<RecordState>()(
         }
       } finally {
         set({ loading: false });
+      }
+    },
+    getTotalSum: async (placeId: number) => {
+      try {
+        const result = await RecordApi.getTotalSum(placeId);
+        set({ totalSum: result.total ?? 0 });
+      } catch (e) {
+        console.log("eee", e);
+        set({ totalSum: 0 });
       }
     },
   }))

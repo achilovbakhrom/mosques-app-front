@@ -10,7 +10,7 @@ function MosquePicker(props: PlaceProps) {
   const { placeholder = "Масжидни танланг", ...rest } = props;
 
   return (
-    <AsyncAutocomplete
+    <AsyncAutocomplete<Place>
       {...rest}
       mapper={(arg) => ({
         value: String(arg.id),
@@ -25,6 +25,8 @@ function MosquePicker(props: PlaceProps) {
       path="/place/mosque_autocomplete/"
       searchKey={AUTOCOMPLETE_PARAM_NAME}
       placeholder={placeholder}
+      optionRender={undefined}
+      labelRender={undefined}
     />
   );
 }

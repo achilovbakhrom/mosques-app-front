@@ -33,6 +33,12 @@ function useRecordTable() {
     fetchData();
   }, [fetchData]);
 
+  useEffect(() => {
+    if (placeId) {
+      store.getTotalSum(Number(placeId));
+    }
+  }, [placeId]);
+
   return {
     store,
   };
