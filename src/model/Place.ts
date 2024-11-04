@@ -4,4 +4,5 @@ export type Place = {
   inn?: string;
   parent?: Place;
   is_mosque?: boolean;
+  employee_count?: number;
 };
