@@ -59,8 +59,8 @@ function EmployeerDialog(props: Props) {
           },
           {
             title: "Лавозими",
-            dataIndex: "position",
-            render: ({ name }) => name,
+
+            render: ({ position }) => (position ? position.name : "-"),
           },
           {
             title: "Объективкаси",
