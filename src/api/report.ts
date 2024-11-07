@@ -1,4 +1,5 @@
 import { Report, ReportType, ReportNode } from "../model/Report";
+import { ReportValueData } from "../model/ReportValue";
 import instance from "./instance";
 
 class ReportApi {
@@ -13,6 +14,21 @@ class ReportApi {
     const response = await this.instance.get(`/record/report/${reportType}/`, {
       params: { start, end, place_id: placeId },
     });
+
+    return response.data;
+  }
+
+  static async getReportValue(
+    start: string,
+    end: string,
+    placeId?: number
+  ): Promise<ReportValueData[]> {
+    const response = await this.instance.get(
+      `/record/report-value/${placeId}/`,
+      {
+        params: { start, end },
+      }
+    );
 
     return response.data;
   }

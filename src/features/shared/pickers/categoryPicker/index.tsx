@@ -4,7 +4,7 @@ import { Category, OperationType } from "../../../../model/Category";
 import { Flex, SelectProps, Tag } from "antd";
 
 type CategoryProps = Omit<SelectProps, "onChange"> &
-  Pick<Props<Category>, "onChange">;
+  Pick<Props<Category>, "onChange" | "filter">;
 
 function CategoryPicker(props: CategoryProps) {
   const { placeholder = "Категорияни танланг", ...rest } = props;

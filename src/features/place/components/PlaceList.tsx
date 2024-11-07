@@ -21,15 +21,17 @@ function PlaceList(props: Props) {
     return height - 220;
   }, []);
   const navigate = useNavigate();
-  const [inn, setInn] = useState("");
+  const [search, setSearch] = useState("");
 
   return (
     <Table
       size="small"
       sticky
       dataSource={props.data.filter((item) => {
-        if (inn) {
-          return item.inn?.includes(inn);
+        const s = search.toLowerCase();
+        const w = item.name.toLocaleLowerCase();
+        if (search) {
+          return item.inn?.includes(search) || w.includes(s);
         }
         return true;
       })}
@@ -49,9 +51,9 @@ function PlaceList(props: Props) {
                   size="small"
                   className="w-[300px]"
                   placeholder="ИНН буйича кидирув"
-                  value={inn}
+                  value={search}
                   onChange={(e) => {
-                    setInn(e.target.value);
+                    setSearch(e.target.value);
                   }}
                 />
               </span>

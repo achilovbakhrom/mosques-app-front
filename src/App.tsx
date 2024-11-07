@@ -14,6 +14,7 @@ import RecordPage from "./pages/Records";
 import Navigation from "./pages/Navigation";
 import ReportPage from "./pages/Report";
 import HierarchicalReportPage from "./pages/HierarchicallyReport";
+import ReportValuePage from "./pages/ReportValue";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/app/report/:id",
         element: <ReportPage />,
+      },
+      {
+        path: "/app/report-value/:id",
+        element: <ReportValuePage />,
       },
       {
         path: "/errors/404",

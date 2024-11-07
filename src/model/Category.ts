@@ -12,4 +12,5 @@ export type Category = {
   operation_type: OperationType;
   unit?: Nillable<Unit>;
   percentage: Nillable<number>;
+  is_communal?: boolean;
 };

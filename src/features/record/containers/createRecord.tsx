@@ -9,7 +9,7 @@ import {
 } from "antd";
 
 import CategoryPicker from "../../shared/pickers/categoryPicker";
-import { Category } from "../../../model/Category";
+import { Category, OperationType } from "../../../model/Category";
 import { useState } from "react";
 import useRecordStore from "../../../stores/recordStore";
 import usePlaceStore from "../../../stores/placeStore";
@@ -17,6 +17,7 @@ import dayjs from "dayjs";
 
 type Props = {
   onClose: () => void;
+  categoryType: "all" | "expense" | "income" | "communal";
 };
 
 interface FormState {
@@ -83,6 +84,20 @@ function CreateRecord(props: Props) {
                 form.setFieldValue("category", originalData);
                 setCategory(originalData);
                 setIsCategoryDirty(true);
+              }}
+              filter={(arg) => {
+                switch (props.categoryType) {
+                  case "all":
+                    return true;
+                  case "income":
+                    return arg.operation_type === OperationType.Income;
+                  case "expense":
+                    return arg.operation_type === OperationType.Expense;
+                  case "communal":
+                    return !!arg.is_communal;
+                  default:
+                    return true;
+                }
               }}
               value={category ? String(category.id) : null}
               status={isCategoryDirty && !category ? "error" : undefined}
