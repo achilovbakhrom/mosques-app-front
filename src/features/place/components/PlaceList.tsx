@@ -65,16 +65,28 @@ function PlaceList(props: Props) {
                 {name} &nbsp; &nbsp;{inn ? <strong>(ИНН: {inn})</strong> : null}
               </p>
               {!is_mosque && (
-                <Button
-                  icon={<FileExcelOutlined />}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    navigate(`/app/place/top-level-report/${id}`);
-                  }}
-                >
-                  Хисобот
-                </Button>
+                <Flex align="center" gap={10}>
+                  <Button
+                    icon={<FileExcelOutlined />}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      navigate(`/app/place/top-level-report/${id}`);
+                    }}
+                  >
+                    Хисобот
+                  </Button>
+                  <Button
+                    icon={<FileExcelOutlined />}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      navigate(`/app/report-value/${id}`);
+                    }}
+                  >
+                    Хисобот (Коммунал)
+                  </Button>
+                </Flex>
               )}
             </Flex>
           ),

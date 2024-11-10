@@ -91,7 +91,7 @@ function FilterPanel() {
               navigate(`/app/report/${id}`);
             }}
           >
-            Хисобот (Сумма)
+            Хисобот
           </Button>
           <Button
             iconPosition="start"
@@ -102,7 +102,7 @@ function FilterPanel() {
               navigate(`/app/report-value/${id}`);
             }}
           >
-            Хисобот (Улчов бирликлар)
+            Хисобот (Коммунал)
           </Button>
           <Button
             icon={<MinusOutlined />}
