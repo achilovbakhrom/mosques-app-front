@@ -30,7 +30,7 @@ const useUserStore = create<UserState>()(
           }
         },
         reset: () => {
-          set({ user: undefined, loading: false });
+          set({ user: undefined, loading: true });
         },
       }),
       { name: "UserStore" }
